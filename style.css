@@ -1,3 +1,110 @@
+/* UTILTY STYLES */
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+:root {
+  --header-color: rgb(43, 226, 125);
+  --main-background-color: linear-gradient(45deg, royalblue, crimson);
+}
+
 body {
-  background-color: rosybrown;
+  background: var(--main-background-color);
+}
+
+/* HEADER STYLES */
+.header {
+  /* that height in px will not be very responsive */
+  height: 100px;
+  width: 100%;
+  padding: 0 2rem;
+  display: grid;
+  align-items: center;
+
+  background-color: var(--header-color);
+}
+
+/* MAIN BODY STYLES */
+main {
+  margin-top: 1rem;
+}
+
+.form-container {
+  display: grid;
+  place-items: center;
+}
+
+.recipe-search-form {
+  display: grid;
+  gap: 5px;
+}
+
+#recipe-label {
+  display: block;
+  font-weight: 600;
+}
+
+#recipe-input {
+  border-radius: 50px;
+  padding: 1.5px 8px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 410px));
+
+  max-width: 1300px;
+
+  padding: 2rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  place-items: center;
+
+  gap: 10px;
+}
+
+.card {
+  display: grid;
+  place-items: center;
+
+  border: 3px solid black;
+  border-radius: 17px;
+
+  padding: 1rem;
+}
+
+.card-title {
+  font-weight: 600;
+  padding-bottom: 1rem;
+}
+
+.comment-container {
+  height: 30px;
+
+  background-color: gray;
+
+  display: grid;
+  place-items: center;
+
+  width: 150px;
+}
+
+.input {
+  height: 25px;
+  resize: none;
+}
+
+.card-thumbnail {
+  width: 200px;
+}
+
+.card-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
