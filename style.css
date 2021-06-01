@@ -8,7 +8,7 @@
 }
 
 :root {
-  --header-color: rgb(43, 226, 125);
+  --header-color: lightgreen;
   --main-background-color: linear-gradient(45deg, royalblue, crimson);
 }
 
