@@ -46,7 +46,7 @@ function renderForm() {
     
     searchSection.append(searchForm)
 
-    listenToSearchMainIngredientForm()
+    listenToSearchCuisineForm()
 }
 
 
@@ -79,6 +79,8 @@ function renderSingleCard(meal) {
     formEl.append(cardTitleEl, thumbNailSectionEl)
     
     cardsSectionEl.append(formEl)
+
+    listenToSearchMainIngredientForm()
 }
 
 function renderMultipleCards(data){
@@ -137,7 +139,7 @@ function getMealByCuisine(cuisine) {
     })
 }
 
-function listenToSearchMainIngredientForm() {
+function listenToSearchCuisineForm() {
     const formEl = document.querySelector(".recipe-search-form")
     formEl.addEventListener('submit', function(event) {
         event.preventDefault()
