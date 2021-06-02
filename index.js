@@ -4,29 +4,29 @@ mainEl.append(cardsSectionEl)
 
 // For the main page
     // Search meal by name of Arrabiata
-    // www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
+    // https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
 
     // Filter by Category of Seafood
-    // www.themealdb.com/api/json/v1/1/filter.php?c=Seafood
+    // https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood
 
     // Filter by main ingredient of chicken brast
-    // www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast
+    // https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast
 
     // Filter by Area of Canada
-    // www.themealdb.com/api/json/v1/1/filter.php?a=Canadian
+    // https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian
 
     // Lookup a single random meal
-    // www.themealdb.com/api/json/v1/1/random.php
+    // https://www.themealdb.com/api/json/v1/1/random.php
 
 // For the second page
     // Lookup full meal details by id
-    // www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+    // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
 
 let state = {
     meals:[],
     comments:[],
-    "selected-meal": "",
-    "current-user": ""
+    "selectedMeal": "",
+    "currentUser": ""
 }
 
 function renderSingleCard() {
@@ -62,3 +62,31 @@ function renderSingleCard() {
 
 function renderMultipleCards() {
 }
+
+function getMealByName(mealName) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
+    .then(function(response){
+            return response.json()
+        })
+}
+
+function listenToSearchMealForm() {
+    const formEl = document.querySelector(".recipe-search-form")
+    formEl.addEventListener('submit', function(event) {
+        event.preventDefault()
+
+        const mealName = formEl["recipe-search"].value
+
+        getMealByName(mealName).then(function(mealsFromServer) {
+            console.log(mealsFromServer)
+        })
+    })
+}
+
+function render() {
+    mainEl.innerHTML = ""
+
+    renderSingleCard()
+}
+
+listenToSearchMealForm()
