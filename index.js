@@ -44,6 +44,8 @@ function renderForm() {
     searchForm.append(searchFormLabel, searchFormInput)
     
     searchSection.append(searchForm)
+
+    listenToSearchMealForm()
 }
 
 
