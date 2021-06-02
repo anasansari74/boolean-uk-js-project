@@ -1,3 +1,7 @@
+const mainEl = document.querySelector("main")
+const cardsSectionEl = document.createElement("section")
+mainEl.append(cardsSectionEl)
+
 // For the main page
     // Search meal by name of Arrabiata
     // www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
@@ -24,10 +28,6 @@ let state = {
     "selected-meal": "",
     "current-user": ""
 }
-
-const mainEl = document.querySelector("main")
-const cardsSectionEl = document.createElement("section")
-mainEl.append(cardsSectionEl)
 
 function renderSingleCard() {
     // <form class="card">
