@@ -1,0 +1,10 @@
+{
+  "meals": [
+    {
+      "apiId": "52902",
+      "mealName": "Parkin Cake",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/qxuqtt1511724269.jpg",
+      "id": 1
+    }
+  ]
+}

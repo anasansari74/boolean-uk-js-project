@@ -62,6 +62,10 @@ function renderSingleCard(meal) {
     // </form>
     const formEl = document.createElement("form")
     formEl.className = "card"
+
+    formEl.addEventListener("click", function() {
+        postDatatoServer(meal)
+    })
     
     const cardTitleEl = document.createElement("h2")
     cardTitleEl.className = "card-title"
@@ -121,6 +125,25 @@ function getMealByCuisine(cuisine) {
     .then(function(response){
         return response.json()
     })
+}
+
+function postDatatoServer(data) {
+    // const dataObject = {
+    //     apiId: meal.idMeal,
+    //     mealName: meal.strMeal,
+    //     mealThumbnail: meal.strMealThumb 
+    // }
+        fetch("http://localhost:3000/meals", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                apiId: data.idMeal,
+                mealName: data.strMeal,
+                mealThumbnail: data.strMealThumb 
+            })
+        })
 }
 
 function listenToSearchMealForm() {
