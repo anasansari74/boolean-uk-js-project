@@ -81,9 +81,10 @@ function renderSingleCard(meal) {
     cardsSectionEl.append(formEl)
 }
 
-function renderMultipleCards(
-
-) {
+function renderMultipleCards(){
+    for ( const meal of mealsFromServer.meals) {
+        renderSingleCard(meal)
+    }
 }
 
 function getMealByName(mealName) {
@@ -100,8 +101,22 @@ function getRandomMeal() {
     })
 }
 
-function getMealByCuisine(cuisineType) {
-    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cuisineType}`)
+function getMealByCuisine(category) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
+function getMealByMainIngredient(mainIngredient) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mainIngredient}`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
+function getMealByCuisine(cuisine) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisine}`)
     .then(function(response){
         return response.json()
     })
@@ -115,9 +130,7 @@ function listenToSearchMealForm() {
         const mealName = formEl["recipe-search"].value
 
         getMealByCuisine(mealName).then(function(mealsFromServer) {
-            for ( const meal of mealsFromServer.meals) {
-                renderSingleCard(meal)
-            }
+            renderMultipleCards()
         })
     })
 }
