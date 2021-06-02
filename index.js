@@ -46,7 +46,7 @@ function renderForm() {
     
     searchSection.append(searchForm)
 
-    listenToSearchMealForm()
+    listenToSearchMainIngredientForm()
 }
 
 
@@ -81,11 +81,13 @@ function renderSingleCard(meal) {
     cardsSectionEl.append(formEl)
 }
 
-function renderMultipleCards(
-
-) {
+function renderMultipleCards(data){
+    for ( const meal of data) {
+        renderSingleCard(meal)
+    }
 }
 
+// Get meal by name
 function getMealByName(mealName) {
     return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
     .then(function(response){
@@ -101,11 +103,49 @@ function listenToSearchMealForm() {
         const mealName = formEl["recipe-search"].value
 
         getMealByName(mealName).then(function(mealsFromServer) {
-            console.log(mealsFromServer.meals[0].strMeal)
-            console.log(mealsFromServer.meals[0].strMealThumb)
-            for ( const meal of mealsFromServer.meals) {
-                renderSingleCard(meal)
-            }
+            renderMultipleCards(mealsFromServer.meals)
+        })
+    })
+}
+
+// Get meal by main ingredient
+function getMealByMainIngredient(mainIngredient) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mainIngredient}`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
+function listenToSearchMainIngredientForm() {
+    const formEl = document.querySelector(".recipe-search-form")
+    formEl.addEventListener('submit', function(event) {
+        event.preventDefault()
+        
+        const mainIngredient = formEl["recipe-search"].value
+
+        getMealByMainIngredient(mainIngredient).then(function(mealsFromServer) {
+            renderMultipleCards(mealsFromServer.meals)
+        })
+    })
+}
+
+// Get meal by cuisine
+function getMealByCuisine(cuisine) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisine}`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
+function listenToSearchMainIngredientForm() {
+    const formEl = document.querySelector(".recipe-search-form")
+    formEl.addEventListener('submit', function(event) {
+        event.preventDefault()
+        
+        const cuisine = formEl["recipe-search"].value
+
+        getMealByCuisine(cuisine).then(function(mealsFromServer) {
+            renderMultipleCards(mealsFromServer.meals)
         })
     })
 }
