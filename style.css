@@ -41,6 +41,14 @@ main {
   margin-top: 1rem;
 }
 
+.result-container {
+  display: grid;
+  place-items: center;
+  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 485px));
+  gap: 30px;
+}
+
 .recipe-search-form {
   display: grid;
   gap: 5px;

@@ -2,7 +2,7 @@ const mainEl = document.querySelector("main")
 const searchSection = document.createElement("section")
 searchSection.setAttribute("class", "form-container")
 const cardsSectionEl = document.createElement("section")
-cardsSectionEl.setAttribute("class", "form-container")
+cardsSectionEl.setAttribute("class", "result-container")
 mainEl.append(searchSection, cardsSectionEl)
 
 // For the main page
@@ -93,6 +93,20 @@ function getMealByName(mealName) {
     })
 }
 
+function getRandomMeal() {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
+function getMealByCuisine(cuisineType) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cuisineType}`)
+    .then(function(response){
+        return response.json()
+    })
+}
+
 function listenToSearchMealForm() {
     const formEl = document.querySelector(".recipe-search-form")
     formEl.addEventListener('submit', function(event) {
@@ -100,9 +114,7 @@ function listenToSearchMealForm() {
         
         const mealName = formEl["recipe-search"].value
 
-        getMealByName(mealName).then(function(mealsFromServer) {
-            console.log(mealsFromServer.meals[0].strMeal)
-            console.log(mealsFromServer.meals[0].strMealThumb)
+        getMealByCuisine(mealName).then(function(mealsFromServer) {
             for ( const meal of mealsFromServer.meals) {
                 renderSingleCard(meal)
             }
