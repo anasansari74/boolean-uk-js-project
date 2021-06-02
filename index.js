@@ -81,8 +81,9 @@ function renderSingleCard(meal) {
     cardsSectionEl.append(formEl)
 }
 
-function renderMultipleCards(){
-    for ( const meal of mealsFromServer.meals) {
+function renderMultipleCards(data){
+    cardsSectionEl.innerHTML = ""
+    for ( const meal of data) {
         renderSingleCard(meal)
     }
 }
@@ -101,7 +102,7 @@ function getRandomMeal() {
     })
 }
 
-function getMealByCuisine(category) {
+function getMealByCategory(category) {
     return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then(function(response){
         return response.json()
@@ -127,18 +128,27 @@ function listenToSearchMealForm() {
     formEl.addEventListener('submit', function(event) {
         event.preventDefault()
         
-        const mealName = formEl["recipe-search"].value
+        const searchValue = formEl["recipe-search"].value
 
-        getMealByCuisine(mealName).then(function(mealsFromServer) {
-            renderMultipleCards()
-        })
+        if (state.searchParameters === "cuisine") {
+            getMealByCuisine(searchValue).then(function(mealsFromServer) {
+                renderMultipleCards(mealsFromServer.meals)
+            })
+        }else if (state.searchParameters === "name") {
+            getMealByName(searchValue).then(function(mealsFromServer) {
+                renderMultipleCards(mealsFromServer.meals)
+            })
+        }else if (state.searchParameters === "ingredient") {
+            getMealByMainIngredient(searchValue).then(function(mealsFromServer) {
+                renderMultipleCards(mealsFromServer.meals)
+            })
+        }else if (state.searchParameters === "category") {
+            getMealByCategory(searchValue).then(function(mealsFromServer) {
+                renderMultipleCards(mealsFromServer.meals)
+            })
+        }
+
     })
-}
-
-function render() {
-    mainEl.innerHTML = ""
-
-    renderSingleCard()
 }
 
 const selectEl = document.querySelector("#search-categories")
@@ -152,6 +162,14 @@ let state = {
 }
 
 selectEl.addEventListener("input", function () {
-    state.searchParameters = selectEl.value
-    renderForm()
+    cardsSectionEl.innerHTML = ""
+    if (selectEl.value==="random") {
+        getRandomMeal().then(function(mealsFromServer) {
+            renderMultipleCards(mealsFromServer.meals)
+        })
+        state.searchParameters = selectEl.value
+    } else {
+        state.searchParameters = selectEl.value
+        renderForm()
+    }
 })
