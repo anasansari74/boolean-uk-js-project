@@ -38,6 +38,7 @@ main {
 .form-container {
   display: grid;
   place-items: center;
+  margin-top: 1rem;
 }
 
 .recipe-search-form {

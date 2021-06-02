@@ -14,12 +14,15 @@
     </header>
     <main>
       <article class="form-container">
-        <form class="recipe-search-form" action="submit">
-          <label id="recipe-label" for="recipe-search"
-            >Search for your recipe:
-          </label>
-          <input id="recipe-search" type="text" name="recipe-search" />
-        </form>
+        <label for="search-categories">Please pick a category for your search:</label>
+        <select name="search" id="search-categories">
+          <option disabled value="">--pick from the options below--</option>
+          <option value="name">Name</option>
+          <option value="ingredient">Ingredient</option>
+          <option value="country">Country</option>
+          <option value="cuisine">Cuisine</option>
+          <option value="random">Random</option>
+        </select>
       </article>
     </main>
   </body>

@@ -1,6 +1,8 @@
 const mainEl = document.querySelector("main")
+const searchSection = document.createElement("section")
+searchSection.setAttribute("class", "form-container")
 const cardsSectionEl = document.createElement("section")
-mainEl.append(cardsSectionEl)
+mainEl.append(searchSection, cardsSectionEl)
 
 // For the main page
     // Search meal by name of Arrabiata
@@ -22,12 +24,28 @@ mainEl.append(cardsSectionEl)
     // Lookup full meal details by id
     // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
 
-let state = {
-    meals:[],
-    comments:[],
-    "selectedMeal": "",
-    "currentUser": ""
+
+function renderForm() {
+    searchSection.innerHTML = ""
+    const searchForm = document.createElement("form")
+    searchForm.setAttribute("class", "recipe-search-form")
+    searchForm.setAttribute("action", "submit")
+    
+        const searchFormLabel = document.createElement("label")
+        searchFormLabel.setAttribute("id", "recipe-label")
+        searchFormLabel.setAttribute("for", "recipe-search")
+        searchFormLabel.innerText = "Search for your recipe:"
+    
+        const searchFormInput = document.createElement("input")
+        searchFormInput.setAttribute("id", "recipe-input")
+        searchFormInput.setAttribute("type", "text")
+        searchFormInput.setAttribute("name", "recipe-search")
+    
+    searchForm.append(searchFormLabel, searchFormInput)
+    
+    searchSection.append(searchForm)
 }
+
 
 function renderSingleCard() {
     // <form class="card">
@@ -45,18 +63,18 @@ function renderSingleCard() {
     const cardTitleEl = document.createElement("h2")
     cardTitleEl.className = "card-title"
     cardTitleEl.innerText = "BeaverTails"
-
+    
     const thumbNailSectionEl = document.createElement("section")
     thumbNailSectionEl.className = "card-thumbnail"
-
+    
     const thumbNailImageEl = document.createElement("img")
     thumbNailImageEl.setAttribute("src", "https://www.themealdb.com/images/media/meals/ryppsv1511815505.jpg")
     thumbNailImageEl.setAttribute("alt", "an image of beavertails")
-
+    
     thumbNailSectionEl.append(thumbNailImageEl)
-
+    
     formEl.append(cardTitleEl, thumbNailSectionEl)
-
+    
     cardsSectionEl.append(formEl)
 }
 
@@ -66,15 +84,15 @@ function renderMultipleCards() {
 function getMealByName(mealName) {
     return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
     .then(function(response){
-            return response.json()
-        })
+        return response.json()
+    })
 }
 
 function listenToSearchMealForm() {
     const formEl = document.querySelector(".recipe-search-form")
     formEl.addEventListener('submit', function(event) {
         event.preventDefault()
-
+        
         const mealName = formEl["recipe-search"].value
 
         getMealByName(mealName).then(function(mealsFromServer) {
@@ -89,4 +107,17 @@ function render() {
     renderSingleCard()
 }
 
-listenToSearchMealForm()
+const selectEl = document.querySelector("#search-categories")
+
+let state = {
+    meals:[],
+    comments:[],
+    selectedMeal: "",
+    currentUser: "",
+    searchParameters: selectEl.value
+}
+
+selectEl.addEventListener("input", function () {
+    state.searchParameters = selectEl.value
+    renderForm()
+})
