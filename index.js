@@ -2,6 +2,7 @@ const mainEl = document.querySelector("main")
 const searchSection = document.createElement("section")
 searchSection.setAttribute("class", "form-container")
 const cardsSectionEl = document.createElement("section")
+cardsSectionEl.setAttribute("class", "form-container")
 mainEl.append(searchSection, cardsSectionEl)
 
 // For the main page
@@ -49,7 +50,7 @@ function renderForm() {
 }
 
 
-function renderSingleCard() {
+function renderSingleCard(meal) {
     // <form class="card">
     //   <section class="card-title">BeaverTails</section>
     //   <section class="card-thumbnail">
@@ -64,14 +65,14 @@ function renderSingleCard() {
     
     const cardTitleEl = document.createElement("h2")
     cardTitleEl.className = "card-title"
-    cardTitleEl.innerText = "BeaverTails"
+    cardTitleEl.innerText = meal.strMeal
     
     const thumbNailSectionEl = document.createElement("section")
     thumbNailSectionEl.className = "card-thumbnail"
     
     const thumbNailImageEl = document.createElement("img")
-    thumbNailImageEl.setAttribute("src", "https://www.themealdb.com/images/media/meals/ryppsv1511815505.jpg")
-    thumbNailImageEl.setAttribute("alt", "an image of beavertails")
+    thumbNailImageEl.setAttribute("src", meal.strMealThumb)
+    thumbNailImageEl.setAttribute("alt", `an image of ${meal.strMeal}`)
     
     thumbNailSectionEl.append(thumbNailImageEl)
     
@@ -80,7 +81,9 @@ function renderSingleCard() {
     cardsSectionEl.append(formEl)
 }
 
-function renderMultipleCards() {
+function renderMultipleCards(
+
+) {
 }
 
 function getMealByName(mealName) {
@@ -98,7 +101,11 @@ function listenToSearchMealForm() {
         const mealName = formEl["recipe-search"].value
 
         getMealByName(mealName).then(function(mealsFromServer) {
-            console.log(mealsFromServer)
+            console.log(mealsFromServer.meals[0].strMeal)
+            console.log(mealsFromServer.meals[0].strMealThumb)
+            for ( const meal of mealsFromServer.meals) {
+                renderSingleCard(meal)
+            }
         })
     })
 }
