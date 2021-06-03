@@ -64,6 +64,7 @@ function renderSingleCard(meal) {
     classStr = classStr.replaceAll("&", "")
     classStr = classStr.replaceAll("(", "")
     classStr = classStr.replaceAll(")", "")
+    classStr = classStr.replaceAll(",", "")
     const anchorEl = document.createElement("a")
     anchorEl.setAttribute("class", `card-link-${classStr}`)
 
@@ -154,6 +155,7 @@ function postDatatoServer(data) {
             classStr = classStr.replaceAll("&", "")
             classStr = classStr.replaceAll("(", "")
             classStr = classStr.replaceAll(")", "")
+            classStr = classStr.replaceAll(",", "")
             const anchorEl = document.querySelector(`.card-link-${classStr}`)
             anchorEl.setAttribute("href", "recipe.html")
         

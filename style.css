@@ -56,7 +56,7 @@ main {
   display: grid;
   place-items: center;
   margin-top: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 485px));
+  grid-template-columns: repeat(auto-fit, minmax(auto, 400px));
   gap: 30px;
 }
 
