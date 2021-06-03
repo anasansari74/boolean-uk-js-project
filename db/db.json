@@ -1,79 +1,25 @@
 {
   "meals": [
     {
-      "apiId": "52902",
-      "mealName": "Parkin Cake",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/qxuqtt1511724269.jpg",
+      "apiId": "53013",
+      "mealName": "Big Mac",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
       "id": 1
     },
     {
-      "apiId": "52910",
-      "mealName": "Chinon Apple Tarts",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/qtqwwu1511792650.jpg",
+      "apiId": "52779",
+      "mealName": "Cream Cheese Tart",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/wurrux1468416624.jpg",
       "id": 2
     },
     {
-      "apiId": "52865",
-      "mealName": "Matar Paneer",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/xxpqsy1511452222.jpg",
+      "apiId": "52978",
+      "mealName": "Kumpir",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg",
       "id": 3
-    },
-    {
-      "apiId": "52876",
-      "mealName": "Minced Beef Pie",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/xwutvy1511555540.jpg",
-      "id": 4
-    },
-    {
-      "apiId": "53035",
-      "mealName": "Ham hock colcannon",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/n41ny81608588066.jpg",
-      "id": 5
-    },
-    {
-      "apiId": "53038",
-      "mealName": "Mustard champ",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/o7p9581608589317.jpg",
-      "id": 6
-    },
-    {
-      "apiId": "53045",
-      "mealName": "Portuguese fish stew (Caldeirada de peixe)",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/do7zps1614349775.jpg",
-      "id": 7
-    },
-    {
-      "apiId": "53045",
-      "mealName": "Portuguese fish stew (Caldeirada de peixe)",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/do7zps1614349775.jpg",
-      "id": 8
-    },
-    {
-      "apiId": "53013",
-      "mealName": "Big Mac",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
-      "id": 9
-    },
-    {
-      "apiId": "53013",
-      "mealName": "Big Mac",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
-      "id": 10
-    },
-    {
-      "apiId": "53013",
-      "mealName": "Big Mac",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
-      "id": 11
-    },
-    {
-      "apiId": "53013",
-      "mealName": "Big Mac",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
-      "id": 12
     }
   ],
   "currentMeal": {
-    "currentAPIId": "53013"
+    "currentAPIId": "52779"
   }
 }

@@ -5,6 +5,12 @@ const cardsSectionEl = document.createElement("section")
 cardsSectionEl.setAttribute("class", "result-container")
 mainEl.append(searchSection, cardsSectionEl)
 
+fetch("http://localhost:3000/meals")
+.then(resp=>resp.json())
+.then(function (data) {
+    setState({meals: [...state.meals, ...data]})
+})
+
 // For the main page
     // Search meal by name of Arrabiata
     // https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
@@ -60,11 +66,14 @@ function renderSingleCard(meal) {
     //     />
     //   </section>
     // </form>
+    const classStr = meal.strMeal.replaceAll(" ", "-")
+    const anchorEl = document.createElement("a")
+    anchorEl.setAttribute("class", `card-link-${classStr}`)
 
     const formEl = document.createElement("form")
     formEl.className = "card"
 
-    formEl.addEventListener("pointerover", function() {
+    formEl.addEventListener("pointerenter", function() {
         postDatatoServer(meal)
     })
     
@@ -83,12 +92,15 @@ function renderSingleCard(meal) {
     
     formEl.append(cardTitleEl, thumbNailSectionEl)
 
-    cardsSectionEl.append(formEl)
+    anchorEl.append(formEl)
+                
+    cardsSectionEl.prepend(anchorEl)
 }
 
 function renderMultipleCards(data){
     cardsSectionEl.innerHTML = ""
     for ( const meal of data) {
+        console.log(meal)
         renderSingleCard(meal)
     }
 }
@@ -134,35 +146,44 @@ function postDatatoServer(data) {
     //     mealName: meal.strMeal,
     //     mealThumbnail: meal.strMealThumb 
     // }
-        // must remember that this fetch is posting duplicates and needs some form of condition
-        fetch("http://localhost:3000/meals", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                apiId: data.idMeal,
-                mealName: data.strMeal,
-                mealThumbnail: data.strMealThumb 
-            })
-        }).then(response=>response.json())
-            .then(function (info) {
-                console.log(info)
-                fetch("http://localhost:3000/currentMeal", {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({currentAPIId: info.apiId})
-                })
-                const anchorEl = document.createElement("a")
-                anchorEl.setAttribute("href", "recipe.html")
-                const formEl = document.querySelector(".card") 
 
-                anchorEl.append(formEl)
-                
-                cardsSectionEl.prepend(anchorEl)
+        if (!state.meals.find(meal=>meal.apiId===data.idMeal)) {
+            fetch("http://localhost:3000/meals", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    apiId: data.idMeal,
+                    mealName: data.strMeal,
+                    mealThumbnail: data.strMealThumb 
+                })
+            }).then(response=>response.json())
+                .then(function (info) {
+                    setState({meals: [...state.meals,info]})
+                    fetch("http://localhost:3000/currentMeal", {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({currentAPIId: info.apiId})
+                    })
+                    const classStr = info.mealName.replaceAll(" ", "-")
+                    const anchorEl = document.querySelector(`.card-link-${classStr}`)
+                    anchorEl.setAttribute("href", "recipe.html")
+                })
+        } else {
+            fetch("http://localhost:3000/currentMeal", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({currentAPIId: data.idMeal})
             })
+            const classStr = data.strMeal.replaceAll(" ", "-")
+            const anchorEl = document.querySelector(`.card-link-${classStr}`)
+            anchorEl.setAttribute("href", "recipe.html")
+        }
     }           
 
 function listenToSearchMealForm() {
@@ -201,6 +222,10 @@ let state = {
     // selectedMeal: "",
     // currentUser: "",
     searchParameters: selectEl.value
+}
+
+function setState(newState) {
+    state = {...state, ...newState}
 }
 
 selectEl.addEventListener("input", function () {
