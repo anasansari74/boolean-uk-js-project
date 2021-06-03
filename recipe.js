@@ -167,7 +167,7 @@ function renderVideo() {
     let URL = "https://www.youtube.com/watch?v=1IszT_guI08"
     // https://www.youtube.com/embed/1IszT_guI08 
     // difference is watch?v= & embed/
-    let URL = URL.replace("watch?v=", "embed/")
+    URL = URL.replace("watch?v=", "embed/")
   }
 }
 

@@ -61,13 +61,10 @@ function renderSingleCard(meal) {
     //   </section>
     // </form>
 
-    const anchorEl = document.createElement("a")
-    anchorEl.setAttribute("href", "recipe.html")
-
     const formEl = document.createElement("form")
     formEl.className = "card"
 
-    formEl.addEventListener("click", function() {
+    formEl.addEventListener("pointerover", function() {
         postDatatoServer(meal)
     })
     
@@ -85,10 +82,8 @@ function renderSingleCard(meal) {
     thumbNailSectionEl.append(thumbNailImageEl)
     
     formEl.append(cardTitleEl, thumbNailSectionEl)
-    
-    anchorEl.append(formEl)
 
-    cardsSectionEl.append(anchorEl)
+    cardsSectionEl.append(formEl)
 }
 
 function renderMultipleCards(data){
@@ -160,6 +155,13 @@ function postDatatoServer(data) {
                     },
                     body: JSON.stringify({currentAPIId: info.apiId})
                 })
+                const anchorEl = document.createElement("a")
+                anchorEl.setAttribute("href", "recipe.html")
+                const formEl = document.querySelector(".card") 
+
+                anchorEl.append(formEl)
+                
+                cardsSectionEl.prepend(anchorEl)
             })
     }           
 
