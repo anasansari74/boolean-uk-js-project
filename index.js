@@ -5,12 +5,6 @@ const cardsSectionEl = document.createElement("section")
 cardsSectionEl.setAttribute("class", "result-container")
 mainEl.append(searchSection, cardsSectionEl)
 
-fetch("http://localhost:3000/meals")
-.then(resp=>resp.json())
-.then(function (data) {
-    setState({meals: [...state.meals, ...data]})
-})
-
 // For the main page
     // Search meal by name of Arrabiata
     // https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
@@ -66,7 +60,10 @@ function renderSingleCard(meal) {
     //     />
     //   </section>
     // </form>
-    const classStr = meal.strMeal.replaceAll(" ", "-")
+    let classStr = meal.strMeal.replaceAll(" ", "-")
+    classStr = classStr.replaceAll("&", "")
+    classStr = classStr.replaceAll("(", "")
+    classStr = classStr.replaceAll(")", "")
     const anchorEl = document.createElement("a")
     anchorEl.setAttribute("class", `card-link-${classStr}`)
 
@@ -146,33 +143,6 @@ function postDatatoServer(data) {
     //     mealName: meal.strMeal,
     //     mealThumbnail: meal.strMealThumb 
     // }
-
-        if (!state.meals.find(meal=>meal.apiId===data.idMeal)) {
-            fetch("http://localhost:3000/meals", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    apiId: data.idMeal,
-                    mealName: data.strMeal,
-                    mealThumbnail: data.strMealThumb 
-                })
-            }).then(response=>response.json())
-                .then(function (info) {
-                    setState({meals: [...state.meals,info]})
-                    fetch("http://localhost:3000/currentMeal", {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({currentAPIId: info.apiId})
-                    })
-                    const classStr = info.mealName.replaceAll(" ", "-")
-                    const anchorEl = document.querySelector(`.card-link-${classStr}`)
-                    anchorEl.setAttribute("href", "recipe.html")
-                })
-        } else {
             fetch("http://localhost:3000/currentMeal", {
                 method: "PATCH",
                 headers: {
@@ -180,10 +150,13 @@ function postDatatoServer(data) {
                 },
                 body: JSON.stringify({currentAPIId: data.idMeal})
             })
-            const classStr = data.strMeal.replaceAll(" ", "-")
+            let classStr = data.strMeal.replaceAll(" ", "-")
+            classStr = classStr.replaceAll("&", "")
+            classStr = classStr.replaceAll("(", "")
+            classStr = classStr.replaceAll(")", "")
             const anchorEl = document.querySelector(`.card-link-${classStr}`)
             anchorEl.setAttribute("href", "recipe.html")
-        }
+        
     }           
 
 function listenToSearchMealForm() {
@@ -217,16 +190,16 @@ function listenToSearchMealForm() {
 const selectEl = document.querySelector("#search-categories")
 
 let state = {
-    meals:[],
+    // meals:[],
     // comments:[],
     // selectedMeal: "",
     // currentUser: "",
     searchParameters: selectEl.value
 }
 
-function setState(newState) {
-    state = {...state, ...newState}
-}
+// function setState(newState) {
+//     state = {...state, ...newState}
+// }
 
 selectEl.addEventListener("input", function () {
     searchSection.innerHTML = ""
