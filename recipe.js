@@ -88,6 +88,29 @@ function intialFetches() {
   })
 }
 
+function niceData(trickyData) {
+  let chosenMeal = {
+    mealName: trickyData.strMeal,
+    mealImg: trickyData.strMealThumb,
+    mealVideo: trickyData.strYoutube,
+    mealInstructions: trickyData.strInstructions,
+    mealIngredients: [],
+  }
+  for (const key of trickyData) {
+    const value = trickyData[key]
+
+    if (key.includes("Ingredient") && (value !== null || value !== "")) {
+      const measureKey = key.replace("Ingredient", "Measure")
+
+      chosenMeal.mealIngredients.push({
+        ingredient: value,
+        measure: trickyData[measureKey]
+      })
+    }
+  }
+  return chosenMeal
+}
+
 intialFetches()
 
 const mainEl = document.querySelector(".wrapper.recipe")
@@ -122,7 +145,7 @@ function renderImage() {
 
       const imgEl = document.createElement("img")
       imgEl.setAttribute("src", "")
-      imgEl.setAttribute("alt", "")
+      imgEl.setAttribute("alt", `image of ${}`)
       imgEl.setAttribute("width", "250px")
 
     imageSection.append(imgEl)
@@ -141,15 +164,7 @@ function renderVideo() {
 //     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 //     allowfullscreen
 //   ></iframe>
-//   <!--function URLConvertor(){ 
-//         const URL = ${https://www.youtube.com/watch?v=1IszT_guI08}
-//                   https://www.youtube.com/embed/1IszT_guI08 
-//                   difference is watch?v= & embed/
-//         let URL = URL.replace("watch?v=", "embed/")
-//       }
-//       strYoutube
-//   -->
-// </section>  
+
   const videoSectionEl = document.createElement("section")
   videoSectionEl.setAttribute("class", "recipe-video")
   
