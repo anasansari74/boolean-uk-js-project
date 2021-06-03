@@ -73,11 +73,19 @@
       </section>
     </main> */}
 
-fetch("http://localhost:3000/currentMeal")
-.then(resp=>resp.json())
-.then(function (data) {
-  console.log(data)
-})
+    // function intialFetches() {
+    //   fetch("http://localhost:3000/currentMeal")
+    //   .then(resp=>resp.json())
+    //   .then(function (data) {
+    //     setState({currentMealId: data.currentId})
+    //     fetch("http://localhost:3000/meals")
+    //   .then(resp=>resp.json())
+    //   .then(function (data) {
+    //     setState({meals: [...state.meals, ...data]})
+    //     const currentMeal = state.meals.find(meal=>meal.id===state.currentMealId)
+    //   })
+    //   })
+    // }
 
 const mainEl = document.querySelector(".wrapper.recipe")
 console.log(mainEl)

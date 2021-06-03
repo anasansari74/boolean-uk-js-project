@@ -158,7 +158,7 @@ function postDatatoServer(data) {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({currentId: info.id})
+                    body: JSON.stringify({currentAPIId: info.apiId})
                 })
             })
     }           
