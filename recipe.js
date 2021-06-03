@@ -77,13 +77,12 @@ function intialFetches() {
   fetch("http://localhost:3000/currentMeal")
   .then(resp=>resp.json())
   .then(function (mealId) {
-    console.log(mealId)
     // setState({currentMealId: data.currentId})
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId.currentAPIId}`)
   .then(resp=>resp.json())
   .then(function (data) {
-    console.log(data.meals[0])
-    // const currentMeal = state.meals.find(meal=>meal.id===state.currentMealId)
+    const newData = niceData(data.meals[0])
+    render(newData)
   })
   })
 }
@@ -96,10 +95,10 @@ function niceData(trickyData) {
     mealInstructions: trickyData.strInstructions,
     mealIngredients: [],
   }
-  for (const key of trickyData) {
+  for (const key in trickyData) {
     const value = trickyData[key]
 
-    if (key.includes("Ingredient") && (value !== null || value !== "")) {
+    if (key.includes("Ingredient") && value !== (null || "")) {
       const measureKey = key.replace("Ingredient", "Measure")
 
       chosenMeal.mealIngredients.push({
@@ -116,7 +115,7 @@ intialFetches()
 const mainEl = document.querySelector(".wrapper.recipe")
 console.log(mainEl)
 
-function renderTitle(){
+function renderTitle(mealName){
 //     <section class="recipe-title border">
 //     <h3>Spicy Arrabiata Penne</h3>
 //      </section>
@@ -125,14 +124,14 @@ function renderTitle(){
   titleSection.setAttribute("class", "recipe-title border")
 
     const h3El = document.createElement("h3")
-    h3El.innerText = ""
+    h3El.innerText = mealName
 
   titleSection.append(h3El)
 
   mainEl.append(titleSection)
 }
 
-function renderImage() {
+function renderImage(mealName, mealImage) {
     // <section class="recipe-image">
     //   <img
     //     src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"
@@ -144,8 +143,8 @@ function renderImage() {
     imageSection.setAttribute("class", "recipe-image")
 
       const imgEl = document.createElement("img")
-      imgEl.setAttribute("src", "")
-      imgEl.setAttribute("alt", `image of ${}`)
+      imgEl.setAttribute("src", mealImage)
+      imgEl.setAttribute("alt", `image of ${mealName}`)
       imgEl.setAttribute("width", "250px")
 
     imageSection.append(imgEl)
@@ -153,7 +152,7 @@ function renderImage() {
     mainEl.append(imageSection)    
 }
  
-function renderVideo() {
+function renderVideo(mealVideo) {
 //   <section class="recipe-video">
 //   <iframe
 //     width="250px"
@@ -171,7 +170,7 @@ function renderVideo() {
   const iframeEl = document.createElement("iframe")
   iframeEl.setAttribute("width", "250px")
   iframeEl.setAttribute("height", "250px")
-  iframeEl.setAttribute("src", URLConvertor)
+  iframeEl.setAttribute("src", URLConvertor())
   iframeEl.setAttribute("title", "YouTube video player")
   iframeEl.setAttribute("frameborder", "0")
   iframeEl.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture")
@@ -182,15 +181,17 @@ function renderVideo() {
   mainEl.append(videoSectionEl)
 
   function URLConvertor(){ 
-    let URL = "https://www.youtube.com/watch?v=1IszT_guI08"
+    let URL = mealVideo
     // https://www.youtube.com/embed/1IszT_guI08 
     // difference is watch?v= & embed/
     URL = URL.replace("watch?v=", "embed/")
+
+    return URL
   }
 }
 
 
-function renderRecipe() {
+function renderRecipe(recipe) {
   // <section class="recipe-instructions border">
   //       <h3>Instructions:</h3>
   //       <p>
@@ -213,14 +214,14 @@ function renderRecipe() {
     h3El.innerText = "Instructions:"
     
     const pEl = document.createElement("p")
-    pEl.innerText = ""
+    pEl.innerText = recipe
 
   recipeSection.append(h3El, pEl)
 
   mainEl.append(recipeSection)
 }
 
-function renderIngredients() {
+function renderIngredients(ingredients) {
 //   <ul class="recipe-ingredients border">
 //   <h3>Ingredients (with measurements):</h3>
 //   <li>penne rigate: 1 pound</li>
@@ -231,6 +232,7 @@ function renderIngredients() {
 //   <!-- need to be a for loop to get all the ingredients and measurements until null -->
 // </ul>
 
+  console.log(ingredients)
   const ingredientsList = document.createElement("ul")
   ingredientsList.setAttribute("class", "recipe-ingredients border")
 
@@ -239,7 +241,12 @@ function renderIngredients() {
 
   ingredientsList.append(h3El)
 
-  // will add loop later
+  for (const ingredient of ingredients) {
+    const liEl = document.createElement("li")
+    liEl.innerText = `${ingredient.ingredient}: ${ingredient.measure}`
+
+    ingredientsList.append(liEl)
+  }
 
   mainEl.append(ingredientsList)
 }
@@ -270,13 +277,11 @@ function renderComments(){
   mainEl.append(commentsSectionEl)
 }
 
-function render(){
-  renderTitle()
-  renderImage()
-  renderVideo()
-  renderRecipe()
-  renderIngredients()
+function render(data){
+  renderTitle(data.mealName)
+  renderImage(data.mealName, data.mealImg)
+  renderVideo(data.mealVideo)
+  renderRecipe(data.mealInstructions)
+  renderIngredients(data.mealIngredients)
   renderComments()
 }
-
-render()
