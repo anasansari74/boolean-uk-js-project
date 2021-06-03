@@ -5,20 +5,31 @@
   padding: 0;
 
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 :root {
   --header-color: lightgreen;
-  --main-background-color: linear-gradient(45deg, royalblue, crimson);
+  --main-background-color: linear-gradient(45deg, crimson, royalblue);
 }
 
 body {
   min-height: 100vh;
+  background-color: lavender;
 
-  background: var(--main-background-color);
+  /* background: var(--main-background-color); */
+}
+
+li,
+a {
+  text-decoration: inherit;
+  color: inherit;
+
+  list-style-type: none;
 }
 
 /* HEADER STYLES */
+.recipe-header,
 .header {
   /* that height in px will not be very responsive */
   height: 100px;
@@ -93,6 +104,13 @@ main {
 
   padding: 1rem;
   margin: 0.5rem;
+
+  transition: 0.5s;
+}
+
+.card:hover {
+  background: var(--main-background-color);
+  transform: scale(1.1);
 }
 
 .card-title {
@@ -125,4 +143,103 @@ main {
   object-fit: cover;
 
   border-radius: 10px;
+}
+
+/* Recipe page styling */
+.recipe-header {
+  height: 75px;
+
+  border-top: 0.1rem solid grey;
+}
+
+.anchor-title:hover {
+  text-decoration: underline;
+}
+
+/* .wrapper {
+  display: grid;
+  grid-template:
+    "img title title video" 100px
+    "img instructions instructions video" 1fr
+    "img ingredients comments video" 1fr /
+    auto 1fr 1fr auto;
+
+  max-width: 1300px;
+
+  padding: 2rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  place-items: center;
+
+  gap: 10px;
+} */
+
+.wrapper {
+  display: grid;
+  grid-template:
+    "img title title title video" 100px
+    "img instructions instructions ingredients video" 1fr
+    "img comments comments comments video" 1fr /
+    auto 1fr 1fr 1fr auto;
+
+  max-width: 1300px;
+
+  padding: 2rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  place-items: center;
+
+  gap: 10px;
+}
+
+.recipe-title {
+  grid-area: title;
+}
+
+.recipe-image {
+  grid-area: img;
+}
+.recipe-image img {
+  border-radius: 1rem;
+}
+
+.recipe-video {
+  grid-area: video;
+}
+
+.recipe-instructions {
+  grid-area: instructions;
+}
+
+.recipe-ingredients {
+  grid-area: ingredients;
+}
+
+/* .recipe-measurements {
+  grid-area: measurements;
+} */
+
+.recipe-comments {
+  grid-area: comments;
+}
+
+.border {
+  display: grid;
+  place-items: center;
+
+  border: 2px solid black;
+  border-radius: 2rem;
+
+  height: 100%;
+  weight: 100%;
+
+  gap: 0.2rem;
+  padding: 1rem;
+}
+
+ul {
+  display: grid;
+  place-items: center;
 }
