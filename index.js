@@ -60,6 +60,10 @@ function renderSingleCard(meal) {
     //     />
     //   </section>
     // </form>
+
+    const anchorEl = document.createElement("a")
+    anchorEl.setAttribute("href", "recipe.html")
+
     const formEl = document.createElement("form")
     formEl.className = "card"
 
@@ -82,7 +86,9 @@ function renderSingleCard(meal) {
     
     formEl.append(cardTitleEl, thumbNailSectionEl)
     
-    cardsSectionEl.append(formEl)
+    anchorEl.append(formEl)
+
+    cardsSectionEl.append(anchorEl)
 }
 
 function renderMultipleCards(data){
@@ -133,6 +139,7 @@ function postDatatoServer(data) {
     //     mealName: meal.strMeal,
     //     mealThumbnail: meal.strMealThumb 
     // }
+        // must remember that this fetch is posting duplicates and needs some form of condition
         fetch("http://localhost:3000/meals", {
             method: "POST",
             headers: {
@@ -143,8 +150,18 @@ function postDatatoServer(data) {
                 mealName: data.strMeal,
                 mealThumbnail: data.strMealThumb 
             })
-        })
-}
+        }).then(response=>response.json())
+            .then(function (info) {
+                console.log(info)
+                fetch("http://localhost:3000/currentMeal", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({currentId: info.id})
+                })
+            })
+    }           
 
 function listenToSearchMealForm() {
     const formEl = document.querySelector(".recipe-search-form")
@@ -178,13 +195,14 @@ const selectEl = document.querySelector("#search-categories")
 
 let state = {
     meals:[],
-    comments:[],
-    selectedMeal: "",
-    currentUser: "",
+    // comments:[],
+    // selectedMeal: "",
+    // currentUser: "",
     searchParameters: selectEl.value
 }
 
 selectEl.addEventListener("input", function () {
+    searchSection.innerHTML = ""
     cardsSectionEl.innerHTML = ""
     if (selectEl.value==="random") {
         getRandomMeal().then(function(mealsFromServer) {

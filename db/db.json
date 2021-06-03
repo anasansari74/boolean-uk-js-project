@@ -5,6 +5,21 @@
       "mealName": "Parkin Cake",
       "mealThumbnail": "https://www.themealdb.com/images/media/meals/qxuqtt1511724269.jpg",
       "id": 1
+    },
+    {
+      "apiId": "52910",
+      "mealName": "Chinon Apple Tarts",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/qtqwwu1511792650.jpg",
+      "id": 2
+    },
+    {
+      "apiId": "52865",
+      "mealName": "Matar Paneer",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/xxpqsy1511452222.jpg",
+      "id": 3
     }
-  ]
+  ],
+  "currentMeal": {
+    "currentId": 3
+  }
 }
