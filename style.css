@@ -110,7 +110,7 @@ main {
 
 .card:hover {
   background: var(--main-background-color);
-  transform: scale(1.1);
+  transform: scale(1.025);
 }
 
 .card-title {
