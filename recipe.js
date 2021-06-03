@@ -73,19 +73,22 @@
       </section>
     </main> */}
 
-    // function intialFetches() {
-    //   fetch("http://localhost:3000/currentMeal")
-    //   .then(resp=>resp.json())
-    //   .then(function (data) {
-    //     setState({currentMealId: data.currentId})
-    //     fetch("http://localhost:3000/meals")
-    //   .then(resp=>resp.json())
-    //   .then(function (data) {
-    //     setState({meals: [...state.meals, ...data]})
-    //     const currentMeal = state.meals.find(meal=>meal.id===state.currentMealId)
-    //   })
-    //   })
-    // }
+function intialFetches() {
+  fetch("http://localhost:3000/currentMeal")
+  .then(resp=>resp.json())
+  .then(function (mealId) {
+    console.log(mealId)
+    // setState({currentMealId: data.currentId})
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId.currentAPIId}`)
+  .then(resp=>resp.json())
+  .then(function (data) {
+    console.log(data.meals[0])
+    // const currentMeal = state.meals.find(meal=>meal.id===state.currentMealId)
+  })
+  })
+}
+
+intialFetches()
 
 const mainEl = document.querySelector(".wrapper.recipe")
 console.log(mainEl)
