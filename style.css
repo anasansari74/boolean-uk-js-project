@@ -33,7 +33,8 @@ a {
 
 /* HEADER STYLES */
 .recipe-page-header,
-.header h1 {
+.header,
+.recipe-footer {
   color: white;
 }
 
@@ -56,6 +57,21 @@ a {
   padding: 0 2rem;
   display: grid;
   grid-template-columns: 52px auto;
+
+  align-items: center;
+
+  background-color: #000d30;
+}
+
+.recipe-footer {
+  height: 100px;
+  width: 100%;
+  padding: 0 2rem;
+  display: grid;
+  /* grid-template-columns: 52px auto; */
+
+  /* position: absolute;
+  bottom: 0; */
 
   align-items: center;
 
