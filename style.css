@@ -32,16 +32,34 @@ a {
 }
 
 /* HEADER STYLES */
-.recipe-header,
+.recipe-page-header,
+.header h1 {
+  color: white;
+}
+
+.recipe-page-header {
+  height: 100px;
+  width: 100%;
+  padding: 0 2rem;
+  display: grid;
+  /* grid-template-columns: 52px auto; */
+
+  align-items: center;
+
+  background-color: #000d30;
+}
+
 .header {
   /* that height in px will not be very responsive */
   height: 100px;
   width: 100%;
   padding: 0 2rem;
   display: grid;
+  grid-template-columns: 52px auto;
+
   align-items: center;
 
-  background-color: var(--header-color);
+  background-color: #000d30;
 }
 
 /* MAIN BODY STYLES */
@@ -119,6 +137,8 @@ main {
 
   border: 3px solid black;
   border-radius: 17px;
+
+  background-color: white;
 
   padding: 1rem;
   margin: 0.5rem;
