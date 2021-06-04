@@ -56,6 +56,18 @@ main {
   margin-top: 1rem;
 }
 
+.dropdown-styling {
+  background-color: white;
+  display: grid;
+  place-items: center;
+  gap: 5px;
+}
+
+.dropdown-label-styling {
+  display: block;
+  font-size: 20px;
+}
+
 .result-container {
   display: grid;
   place-items: center;

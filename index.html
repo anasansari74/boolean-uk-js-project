@@ -13,19 +13,21 @@
       <h1>The Boolean Recipe List</h1>
     </header>
     <main>
-      <section class="form-container">
-        <label for="search-categories"
-          >Please pick a type for your search:</label
-        >
-        <select name="search" id="search-categories">
-          <option value="">--pick from the options below--</option>
-          <option value="name">Name</option>
-          <option value="ingredient">Ingredient</option>
-          <option value="category">Category</option>
-          <option value="cuisine">Cuisine</option>
-          <option value="random">Random</option>
-        </select>
-      </section>
+      <article class="form-container">
+        <div class="dropdown-styling">
+          <label class="dropdown-label-styling" for="search-categories"
+            >Please pick a type for your search:</label
+          >
+          <select name="search" id="search-categories">
+            <option value="">--pick from the options below--</option>
+            <option value="name">Name</option>
+            <option value="ingredient">Ingredient</option>
+            <option value="category">Category</option>
+            <option value="cuisine">Cuisine</option>
+            <option value="random">Random</option>
+          </select>
+        </div>
+      </article>
     </main>
   </body>
 </html>
