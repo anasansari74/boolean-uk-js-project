@@ -82,7 +82,7 @@ function renderSingleCard(currentMeal) {
         postDatatoServer(currentMeal)
     })
 
-    formEl.addEventListener("click", function() {
+    formEl.addEventListener("mousedown", function() {
         if (!state.meals.find(meal=>meal.apiId===currentMeal.idMeal)) {
             fetch("http://localhost:3000/meals", {
                 method: "POST",
@@ -216,8 +216,6 @@ const selectEl = document.querySelector("#search-categories")
 
 let state = {
     meals:[],
-    // comments:[],
-    // selectedMeal: "",
     // currentUser: "",
     searchParameters: selectEl.value
 }

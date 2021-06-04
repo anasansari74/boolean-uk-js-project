@@ -12,6 +12,45 @@ function intialFetches() {
   })
 }
 
+let state = {
+  meals:[],
+  comments:[],
+  selectedMeal: null,
+  // currentUser: "",
+}
+
+function setState(newState) {
+  state = {...state, ...newState}
+}
+
+function stateFetches () {
+  fetch("http://localhost:3000/meals")
+  .then(resp=>resp.json())
+  .then(function(data){
+    console.log("this is the meal data", data)
+    setState({meals: [...state.meals, ...data]})
+  })
+
+  fetch("http://localhost:3000/currentMeal")
+  .then(function(resp) {
+    return resp.json()
+  })
+  .then(function(data){
+    console.log("this is the current meal:", data)
+    setState({selectedMeal: data.currentAPIId})
+  })
+  fetch("http://localhost:3000/comments")
+  .then(function(resp) {
+    return resp.json()
+  })
+  .then(function(data){
+    console.log("these are the comments:", data)
+    setState({comments: [...state.comments, ...data]})
+  })
+}
+
+stateFetches ()
+
 function niceData(trickyData) {
   let chosenMeal = {
     mealName: trickyData.strMeal,
@@ -40,7 +79,6 @@ function niceData(trickyData) {
   return chosenMeal
 }
 
-intialFetches()
 
 const mainEl = document.querySelector(".wrapper.recipe")
 console.log(mainEl)
@@ -53,11 +91,11 @@ function renderTitle(mealName){
   const titleSection = document.createElement("section")
   titleSection.setAttribute("class", "recipe-title border")
 
-    const h3El = document.createElement("h3")
+  const h3El = document.createElement("h3")
     h3El.innerText = mealName
-
+    
   titleSection.append(h3El)
-
+  
   mainEl.append(titleSection)
 }
 
@@ -71,18 +109,18 @@ function renderImage(mealName, mealImage) {
     // </section>    
     const imageSection = document.createElement("section")
     imageSection.setAttribute("class", "recipe-image")
-
+    
       const imgEl = document.createElement("img")
       imgEl.setAttribute("src", mealImage)
       imgEl.setAttribute("alt", `image of ${mealName}`)
       imgEl.setAttribute("width", "250px")
 
-    imageSection.append(imgEl)
+      imageSection.append(imgEl)
 
     mainEl.append(imageSection)    
-}
+  }
  
-function renderVideo(mealVideo) {
+  function renderVideo(mealVideo) {
 //   <section class="recipe-video">
 //   <iframe
 //     width="250px"
@@ -109,13 +147,13 @@ function renderVideo(mealVideo) {
   videoSectionEl.append(iframeEl)
   
   mainEl.append(videoSectionEl)
-
+  
   function URLConvertor(){ 
     let URL = mealVideo
     // https://www.youtube.com/embed/1IszT_guI08 
     // difference is watch?v= & embed/
     URL = URL.replace("watch?v=", "embed/")
-
+    
     return URL
   }
 }
@@ -140,14 +178,14 @@ function renderRecipe(recipe) {
   const recipeSection = document.createElement("section")
   recipeSection.setAttribute("class", "recipe-instructions border")
 
-    const h3El = document.createElement("h3")
+  const h3El = document.createElement("h3")
     h3El.innerText = "Instructions:"
     
     const pEl = document.createElement("p")
     pEl.innerText = recipe
-
+    
   recipeSection.append(h3El, pEl)
-
+  
   mainEl.append(recipeSection)
 }
 
@@ -162,15 +200,15 @@ function renderIngredients(ingredients) {
 //   <!-- need to be a for loop to get all the ingredients and measurements until null -->
 // </ul>
 
-  console.log(ingredients)
+console.log(ingredients)
   const ingredientsList = document.createElement("ul")
   ingredientsList.setAttribute("class", "recipe-ingredients border")
 
     const h3El = document.createElement("h3")
     h3El.innerText = "Ingredients (with measurements):"
-
+    
   ingredientsList.append(h3El)
-
+  
   for (const ingredient of ingredients) {
     const liEl = document.createElement("li")
     liEl.innerText = `${ingredient.ingredient}: ${ingredient.measure}`
@@ -193,16 +231,40 @@ function renderComments(){
   const commentsSectionEl = document.createElement("section")
   commentsSectionEl.setAttribute("class","recipe-comments border")
 
+  const formEl = document.createElement("form")
+
   const commentInputEl = document.createElement("input")
-  commentInputEl.setAttribute("type", "text")
-  commentInputEl.setAttribute("placeholder", "Enter a comment!")
+      commentInputEl.setAttribute("type", "text")
+      commentInputEl.setAttribute("placeholder", "Enter a comment!")
 
-  commentsSectionEl.append(commentInputEl)
+    formEl.append(commentInputEl)
+    
+    formEl.addEventListener("submit", function(event){
 
-  const ulEl = document.createElement("ul")
-  ulEl.setAttribute("class", "comments-box")
+      event.preventDefault()
 
-  commentsSectionEl.append(ulEl)
+      const newComment = {
+      content: commentInputEl.value,
+      mealId: state.selectedMeal,
+      upvotes: 0,
+      downvotes: 0
+    }
+
+      fetch("http://localhost:3000/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newComment)
+      })
+
+      formEl.reset()
+    })
+    
+    const ulEl = document.createElement("ul")
+    ulEl.setAttribute("class", "comments-box")
+
+  commentsSectionEl.append(formEl, ulEl)
   
   mainEl.append(commentsSectionEl)
 }
@@ -215,3 +277,5 @@ function render(data){
   renderIngredients(data.mealIngredients)
   renderComments()
 }
+
+intialFetches()

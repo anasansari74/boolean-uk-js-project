@@ -17,9 +17,30 @@
       "mealName": "Mbuzi Choma (Roasted Goat)",
       "mealThumbnail": "https://www.themealdb.com/images/media/meals/cuio7s1555492979.jpg",
       "id": 3
+    },
+    {
+      "apiId": "52937",
+      "mealName": "Jerk chicken with rice & peas",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/tytyxu1515363282.jpg",
+      "id": 4
+    },
+    {
+      "apiId": "52895",
+      "mealName": "English Breakfast",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/utxryw1511721587.jpg",
+      "id": 5
+    },
+    {
+      "apiId": "52904",
+      "mealName": "Beef Bourguignon",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/vtqxtu1511784197.jpg",
+      "id": 6
     }
   ],
   "currentMeal": {
-    "currentAPIId": "52968"
-  }
+    "currentAPIId": "52904"
+  },
+  "comments": [
+
+  ]
 }
