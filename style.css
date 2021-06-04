@@ -200,7 +200,7 @@ main {
     "title img video" auto
     "instructions instructions ingredients" auto
     "comments comments comments" auto /
-    1fr auto auto;
+    auto auto auto;
 
   max-width: 1300px;
 
