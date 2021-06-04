@@ -5,6 +5,13 @@ const cardsSectionEl = document.createElement("section")
 cardsSectionEl.setAttribute("class", "result-container")
 mainEl.append(searchSection, cardsSectionEl)
 
+
+fetch("http://localhost:3000/meals")
+.then(resp=>resp.json())
+.then(function (data) {
+    setState({meals: [...state.meals, ...data]})
+})
+
 // For the main page
     // Search meal by name of Arrabiata
     // https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
@@ -50,7 +57,7 @@ function renderForm() {
 }
 
 
-function renderSingleCard(meal) {
+function renderSingleCard(currentMeal) {
     // <form class="card">
     //   <section class="card-title">BeaverTails</section>
     //   <section class="card-thumbnail">
@@ -60,7 +67,7 @@ function renderSingleCard(meal) {
     //     />
     //   </section>
     // </form>
-    let classStr = meal.strMeal.replaceAll(" ", "-")
+    let classStr = currentMeal.strMeal.replaceAll(" ", "-")
     classStr = classStr.replaceAll("&", "")
     classStr = classStr.replaceAll("(", "")
     classStr = classStr.replaceAll(")", "")
@@ -72,19 +79,35 @@ function renderSingleCard(meal) {
     formEl.className = "card"
 
     formEl.addEventListener("pointerenter", function() {
-        postDatatoServer(meal)
+        postDatatoServer(currentMeal)
+    })
+
+    formEl.addEventListener("click", function() {
+        if (!state.meals.find(meal=>meal.apiId===currentMeal.idMeal)) {
+            fetch("http://localhost:3000/meals", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    apiId: currentMeal.idMeal,
+                    mealName: currentMeal.strMeal,
+                    mealThumbnail: currentMeal.strMealThumb 
+                })
+            })
+        }
     })
     
     const cardTitleEl = document.createElement("h2")
     cardTitleEl.className = "card-title"
-    cardTitleEl.innerText = meal.strMeal
+    cardTitleEl.innerText = currentMeal.strMeal
     
     const thumbNailSectionEl = document.createElement("section")
     thumbNailSectionEl.className = "card-thumbnail"
     
     const thumbNailImageEl = document.createElement("img")
-    thumbNailImageEl.setAttribute("src", meal.strMealThumb)
-    thumbNailImageEl.setAttribute("alt", `an image of ${meal.strMeal}`)
+    thumbNailImageEl.setAttribute("src", currentMeal.strMealThumb)
+    thumbNailImageEl.setAttribute("alt", `an image of ${currentMeal.strMeal}`)
     
     thumbNailSectionEl.append(thumbNailImageEl)
     
@@ -192,16 +215,16 @@ function listenToSearchMealForm() {
 const selectEl = document.querySelector("#search-categories")
 
 let state = {
-    // meals:[],
+    meals:[],
     // comments:[],
     // selectedMeal: "",
     // currentUser: "",
     searchParameters: selectEl.value
 }
 
-// function setState(newState) {
-//     state = {...state, ...newState}
-// }
+function setState(newState) {
+    state = {...state, ...newState}
+}
 
 selectEl.addEventListener("input", function () {
     searchSection.innerHTML = ""

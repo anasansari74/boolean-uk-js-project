@@ -1,25 +1,13 @@
 {
   "meals": [
     {
-      "apiId": "53013",
-      "mealName": "Big Mac",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
+      "apiId": "52996",
+      "mealName": "French Onion Chicken with Roasted Carrots & Mashed Potatoes",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/b5ft861583188991.jpg",
       "id": 1
-    },
-    {
-      "apiId": "52779",
-      "mealName": "Cream Cheese Tart",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/wurrux1468416624.jpg",
-      "id": 2
-    },
-    {
-      "apiId": "52978",
-      "mealName": "Kumpir",
-      "mealThumbnail": "https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg",
-      "id": 3
     }
   ],
   "currentMeal": {
-    "currentAPIId": "52945"
+    "currentAPIId": "52996"
   }
 }

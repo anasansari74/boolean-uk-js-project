@@ -107,6 +107,11 @@ function niceData(trickyData) {
       })
     }
   }
+
+  const filteredIngerdients = chosenMeal.mealIngredients.filter(ingredient=>ingredient.measure!==" ")
+
+  chosenMeal = {...chosenMeal, mealIngredients: [...filteredIngerdients]}
+
   return chosenMeal
 }
 
