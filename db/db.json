@@ -5,9 +5,21 @@
       "mealName": "French Onion Chicken with Roasted Carrots & Mashed Potatoes",
       "mealThumbnail": "https://www.themealdb.com/images/media/meals/b5ft861583188991.jpg",
       "id": 1
+    },
+    {
+      "apiId": "52894",
+      "mealName": "Battenberg Cake",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/ywwrsp1511720277.jpg",
+      "id": 2
+    },
+    {
+      "apiId": "52968",
+      "mealName": "Mbuzi Choma (Roasted Goat)",
+      "mealThumbnail": "https://www.themealdb.com/images/media/meals/cuio7s1555492979.jpg",
+      "id": 3
     }
   ],
   "currentMeal": {
-    "currentAPIId": "52996"
+    "currentAPIId": "52968"
   }
 }
