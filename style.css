@@ -222,7 +222,7 @@ main {
     "title img video" auto
     "instructions instructions ingredients" auto
     "comments comments comments" auto /
-    auto auto auto;
+    1fr 1fr 1fr;
 
   max-width: 1300px;
 
