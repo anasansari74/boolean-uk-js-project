@@ -38,9 +38,15 @@
     }
   ],
   "currentMeal": {
-    "currentAPIId": "52904"
+    "currentAPIId": "52975"
   },
   "comments": [
-
+    {
+      "content": "Tasty!!",
+      "mealId": "52904",
+      "upvotes": 0,
+      "downvotes": 0,
+      "id": 1
+    }
   ]
 }

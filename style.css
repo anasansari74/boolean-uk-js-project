@@ -6,13 +6,13 @@
 
   box-sizing: border-box;
   scroll-behavior: smooth;
-  font-family: Helvetica,sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 
 :root {
   --header-color: lightgreen;
   --card-background-color: linear-gradient(45deg, crimson, royalblue);
-  --main-background: "https://th.bing.com/th/id/Raed6f78ac39a84fc72c7d182267f35d1?rik=pYXTYXTD%2bdVwjg&riu=http%3a%2f%2fil8.picdn.net%2fshutterstock%2fvideos%2f1404412%2fthumb%2f1.jpg&ehk=FG0P7ShuYaAuUf6qKFJM11lukWZEvZW3gxqDCHczA4Y%3d&risl=&pid=ImgRaw";
+  /* --main-background: "https://th.bing.com/th/id/Raed6f78ac39a84fc72c7d182267f35d1?rik=pYXTYXTD%2bdVwjg&riu=http%3a%2f%2fil8.picdn.net%2fshutterstock%2fvideos%2f1404412%2fthumb%2f1.jpg&ehk=FG0P7ShuYaAuUf6qKFJM11lukWZEvZW3gxqDCHczA4Y%3d&risl=&pid=ImgRaw"; */
 }
 
 body {
@@ -107,7 +107,8 @@ main {
   display: grid;
   place-items: center;
   margin-top: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 400px));
+  /* grid-template-columns: repeat(auto-fit, minmax(auto, 400px)); */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
 }
 
@@ -135,7 +136,8 @@ main {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 410px));
+  grid-template-columns: auto auto auto;
+  /* grid-template-columns: repeat(auto-fit, minmax(auto, 410px)); */
 
   max-width: 1300px;
 
@@ -159,6 +161,9 @@ main {
 
   padding: 1rem;
   margin: 0.5rem;
+
+  height: 400px;
+  width: 300px;
 
   transition: 0.5s;
 }
